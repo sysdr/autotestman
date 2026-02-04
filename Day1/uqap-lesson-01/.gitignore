@@ -1,0 +1,114 @@
+# Virtual Environment
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+*.egg
+
+# Testing
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+*.log
+*.log.*
+.pytest_cache/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+.project
+.classpath
+.settings/
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Build
+dist/
+build/
+*.egg-info/
+*.whl
+
+# Logs and PID files
+logs/
+*.pid
+*.log
+*.log.*
+
+# API Keys and Secrets
+*.key
+*.pem
+*.p12
+*.secret
+.env
+.env.local
+.env.*.local
+secrets/
+credentials/
+config/secrets.json
+**/api_key*
+**/apikey*
+**/API_KEY*
+**/APIKEY*
+**/*secret*
+**/*SECRET*
+**/*password*
+**/*PASSWORD*
+**/*token*
+**/*TOKEN*
+
+# Istio
+istio/
+Istio/
+*istio*
+*Istio*
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
+
+# Project specific
+test_api.py
+validate_dashboard.py
+update_metrics.py

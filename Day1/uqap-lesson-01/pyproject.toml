@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "uqap-automation"
+version = "0.1.0"
+description = "Unified Quality Assurance Platform - Lesson 1"
+requires-python = ">=3.11"
+dependencies = [
+    "selenium>=4.15.0,<5.0.0",
+    "pytest>=7.4.0,<8.0.0",
+    "pytest-html>=4.1.0,<5.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"

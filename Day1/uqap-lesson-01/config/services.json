@@ -1,0 +1,12 @@
+{
+  "api": {
+    "script": "scripts/start_api.sh",
+    "port": 8000,
+    "pid_file": "logs/api.pid"
+  },
+  "dashboard": {
+    "script": "scripts/start_dashboard.sh",
+    "port": 8080,
+    "pid_file": "logs/dashboard.pid"
+  }
+}
