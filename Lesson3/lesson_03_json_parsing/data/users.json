@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "Alice Johnson",
+    "age": 25,
+    "email": "alice@example.com",
+    "is_active": true
+  },
+  {
+    "id": 2,
+    "name": "Bob Smith",
+    "age": 32,
+    "email": "bob@example.com",
+    "is_active": true
+  },
+  {
+    "id": 3,
+    "name": "Carol Williams",
+    "age": 45,
+    "email": "carol@example.com",
+    "is_active": false
+  },
+  {
+    "id": 4,
+    "name": "David Brown",
+    "age": 16,
+    "email": "david@example.com",
+    "is_active": true
+  },
+  {
+    "id": 5,
+    "name": "Eve Davis",
+    "age": 17,
+    "email": "eve@example.com",
+    "is_active": true
+  },
+  {
+    "id": 6,
+    "name": "Frank Miller",
+    "age": null,
+    "email": "frank@example.com"
+  },
+  {
+    "id": 7,
+    "name": "Grace Lee",
+    "email": "grace@example.com"
+  },
+  {
+    "id": 8,
+    "name": "Henry Wilson",
+    "age": "28",
+    "email": "henry@example.com"
+  },
+  {
+    "id": 9,
+    "name": "Ivy Martinez",
+    "age": 19,
+    "email": ""
+  },
+  {
+    "id": 10,
+    "name": "",
+    "age": 30,
+    "email": "unknown@example.com"
+  },
+  {
+    "name": "Invalid User"
+  },
+  {
+    "id": "not-a-number",
+    "name": "Bad ID",
+    "age": 25
+  }
+]
