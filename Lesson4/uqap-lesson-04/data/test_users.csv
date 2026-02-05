@@ -1,0 +1,6 @@
+email,password,role,active,created_at
+user1@test.com,TestPass123!,user,TRUE,2024-01-15
+admin@test.com,AdminPass456!,admin,TRUE,2024-01-10
+viewer@test.com,ViewPass789!,viewer,FALSE,2024-01-20
+editor@test.com,EditPass101!,editor,TRUE,2024-01-18
+user2@test.com,UserPass202!,user,TRUE,2024-01-22
