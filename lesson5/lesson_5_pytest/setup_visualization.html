@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson 5: PyTest Setup - Visualization</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .section {
+            background: white;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .tree {
+            background: #2d2d2d;
+            color: #00ff00;
+            padding: 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+        .success {
+            color: #10b981;
+            font-weight: bold;
+        }
+        .command {
+            background: #1e1e1e;
+            color: #58a6ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+        }
+        .metric {
+            display: inline-block;
+            background: #f0f9ff;
+            border-left: 4px solid #3b82f6;
+            padding: 15px;
+            margin: 10px 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>&#10003; Lesson 5: PyTest Setup Complete</h1>
+        <p>Your test infrastructure is ready. Scripts have been transformed into a production-grade test suite.</p>
+    </div>
+
+    <div class="section">
+        <h2>Project Structure</h2>
+        <div class="tree">
+lesson_5_pytest/<br>
+&#9500;&#9472;&#9472; conftest.py              # Shared fixtures (auto-discovered)<br>
+&#9500;&#9472;&#9472; pytest.ini               # PyTest configuration<br>
+&#9500;&#9472;&#9472; requirements.txt         # Dependencies<br>
+&#9500;&#9472;&#9472; README.md                # Setup instructions<br>
+&#9492;&#9472;&#9472; tests/<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&#9500;&#9472;&#9472; __init__.py<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&#9500;&#9472;&#9472; test_data_validation.py   # 4 tests<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&#9492;&#9472;&#9472; test_file_operations.py   # 3 tests
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Quick Start</h2>
+        <div class="command">$ pytest -v</div>
+        <div class="metric">
+            <strong>Expected Result:</strong> <span class="success">7 passed</span> in ~0.1s
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Key Improvements Over Scripts</h2>
+        <ul>
+            <li><strong>Automatic Discovery:</strong> No manual test lists. PyTest finds all test_*.py files.</li>
+            <li><strong>Fixture Isolation:</strong> Each test gets clean temp workspace. Zero shared state.</li>
+            <li><strong>Rich Assertions:</strong> Failure messages show exact values and diffs.</li>
+            <li><strong>Structured Output:</strong> JUnit XML, HTML reports for CI/CD integration.</li>
+            <li><strong>Parallel Execution:</strong> Ready for pytest-xdist (Lesson 6).</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Verification Commands</h2>
+        <table style="width:100%; border-collapse: collapse;">
+            <tr style="background:#f9fafb;">
+                <td style="padding:10px;"><code>pytest --setup-show</code></td>
+                <td style="padding:10px;">Visualize fixture setup/teardown</td>
+            </tr>
+            <tr>
+                <td style="padding:10px;"><code>pytest --random-order</code></td>
+                <td style="padding:10px;">Verify test isolation</td>
+            </tr>
+            <tr style="background:#f9fafb;">
+                <td style="padding:10px;"><code>pytest -k "email"</code></td>
+                <td style="padding:10px;">Run tests matching pattern</td>
+            </tr>
+            <tr>
+                <td style="padding:10px;"><code>pytest --collect-only</code></td>
+                <td style="padding:10px;">List all discovered tests</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Next Steps</h2>
+        <p>Open the project in your editor and run <code>pytest -v</code>. All 7 tests should pass.</p>
+    </div>
+</body>
+</html>
