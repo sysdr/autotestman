@@ -1,0 +1,22 @@
+{
+  "project": "UQAP Test Suite",
+  "environment": "staging",
+  "tests": [
+    {
+      "name": "Test_HomePage_Load",
+      "url": "https://example.com",
+      "expected_status": 200,
+      "timeout": 5
+    },
+    {
+      "name": "Test_API_Health",
+      "url": "https://api.example.com/health",
+      "expected_status": 200,
+      "timeout": 3
+    },
+    {
+      "name": "Test_Missing_Field",
+      "url": "https://example.com/broken"
+    }
+  ]
+}
