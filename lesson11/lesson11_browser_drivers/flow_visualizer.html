@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 11: Browser Automation Flow</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #43b02a;
+            padding-bottom: 10px;
+        }
+        .flow-step {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-left: 4px solid #43b02a;
+            border-radius: 4px;
+        }
+        .step-number {
+            background: #43b02a;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        .step-content {
+            flex: 1;
+        }
+        .step-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        .step-detail {
+            color: #666;
+            font-size: 14px;
+        }
+        .code {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        .highlight {
+            color: #43b02a;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Lesson 11: Browser Automation Flow</h1>
+        
+        <div class="flow-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <div class="step-title">Initialize WebDriver</div>
+                <div class="step-detail">Auto-download ChromeDriver matching your Chrome version</div>
+            </div>
+        </div>
+        
+        <div class="flow-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <div class="step-title">Navigate to URL</div>
+                <div class="step-detail">driver.get() waits for document.readyState === 'complete'</div>
+            </div>
+        </div>
+        
+        <div class="flow-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <div class="step-title">Explicit Wait</div>
+                <div class="step-detail">Poll every 500ms until title contains "Google" (max 10s)</div>
+            </div>
+        </div>
+        
+        <div class="flow-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+                <div class="step-title">Extract Data</div>
+                <div class="step-detail">Get page title and verify expectations</div>
+            </div>
+        </div>
+        
+        <div class="flow-step">
+            <div class="step-number">5</div>
+            <div class="step-content">
+                <div class="step-title">Clean Teardown</div>
+                <div class="step-detail">driver.quit() closes browser and kills process</div>
+            </div>
+        </div>
+        
+        <h2>Key Concepts</h2>
+        <div class="code">
+<span class="highlight">NEVER DO THIS:</span>
+driver.get("https://google.com")
+time.sleep(5)  # ❌ Wastes time, causes flakiness
+
+<span class="highlight">ALWAYS DO THIS:</span>
+driver.get("https://google.com")
+WebDriverWait(driver, 10).until(
+    EC.title_contains("Google")
+)  # ✓ Adaptive, fails fast, clear errors
+        </div>
+        
+        <h2>Production Metrics</h2>
+        <ul>
+            <li><strong>Test Stability:</strong> &gt; 99% pass rate over 100 runs</li>
+            <li><strong>Execution Time:</strong> &lt; 10 seconds for simple navigation</li>
+            <li><strong>Resource Cleanup:</strong> Zero zombie processes after test</li>
+        </ul>
+    </div>
+</body>
+</html>
