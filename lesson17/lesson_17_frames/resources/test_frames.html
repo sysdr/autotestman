@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Frame Testing Page</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        iframe { border: 2px solid #333; margin: 10px; }
+        .main-content { background: #e8f4f8; padding: 20px; margin: 10px; }
+        .frame-content { background: #fff3cd; padding: 15px; }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <h1 id="main-title">Main Page Content</h1>
+        <p id="main-message">This is the default context</p>
+        <button id="main-button">Main Page Button</button>
+    </div>
+
+    <h2>Outer Frame:</h2>
+    <iframe id="outerFrame" name="outerFrame" width="90%" height="400">
+    </iframe>
+
+    <script>
+        // Generate outer frame content
+        const outerFrame = document.getElementById('outerFrame');
+        const outerDoc = outerFrame.contentDocument;
+        outerDoc.open();
+        outerDoc.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <style>
+                    body { font-family: Arial; padding: 20px; background: #d4edda; }
+                    iframe { border: 2px solid #666; margin: 10px; }
+                </style>
+            </head>
+            <body>
+                <div class="frame-content">
+                    <h2 id="outer-title">Outer Frame Content</h2>
+                    <input id="outer-input" type="text" placeholder="Enter text in outer frame" 
+                           style="padding: 8px; width: 300px; margin: 10px 0;">
+                    <button id="outer-button">Outer Frame Button</button>
+                </div>
+
+                <h3>Inner Frame:</h3>
+                <iframe id="innerFrame" name="innerFrame" width="80%" height="200">
+                </iframe>
+
+                <script>
+                    const innerFrame = document.getElementById('innerFrame');
+                    const innerDoc = innerFrame.contentDocument;
+                    innerDoc.open();
+                    innerDoc.write(\`
+                        <!DOCTYPE html>
+                        <html>
+                        <head>
+                            <style>
+                                body { padding: 20px; background: #f8d7da; font-family: Arial; }
+                            </style>
+                        </head>
+                        <body>
+                            <div class="frame-content">
+                                <h3 id="inner-title">Inner Frame Content</h3>
+                                <input id="inner-input" type="text" 
+                                       placeholder="Enter text in inner frame"
+                                       style="padding: 8px; width: 280px; margin: 10px 0;">
+                                <button id="inner-button">Inner Frame Button</button>
+                                <div id="result-display" style="margin-top: 10px; padding: 10px; 
+                                     background: white; display: none;"></div>
+                            </div>
+                        </body>
+                        </html>
+                    \`);
+                    innerDoc.close();
+                <\/script>
+            </body>
+            </html>
+        `);
+        outerDoc.close();
+    </script>
+</body>
+</html>
