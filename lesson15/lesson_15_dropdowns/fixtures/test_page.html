@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dropdown Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        h2 {
+            color: #333;
+        }
+
+        /* Native Select Styling */
+        select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 300px;
+        }
+
+        /* Custom Dropdown Styling */
+        .custom-dropdown {
+            position: relative;
+            width: 300px;
+        }
+        .dropdown-trigger {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            background: white;
+            user-select: none;
+        }
+        .dropdown-trigger:hover {
+            background: #f5f5f5;
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            border: 1px solid #ccc;
+            border-top: none;
+            background: white;
+            max-height: 200px;
+            overflow-y: auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        .dropdown-menu.open {
+            display: block;
+        }
+        .dropdown-option {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .dropdown-option:hover {
+            background: #e3f2fd;
+        }
+        .selected-value {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dropdown Handling Test Page</h1>
+
+    <div class="section">
+        <h2>1. Native HTML Select</h2>
+        <label for="country-select">Select Country:</label><br><br>
+        <select id="country-select" name="country">
+            <option value="">-- Choose a country --</option>
+            <option value="us">United States</option>
+            <option value="ca">Canada</option>
+            <option value="uk">United Kingdom</option>
+            <option value="au">Australia</option>
+            <option value="de">Germany</option>
+        </select>
+        <div id="native-result" class="selected-value" style="display:none;"></div>
+    </div>
+
+    <div class="section">
+        <h2>2. Custom Div-based Dropdown</h2>
+        <label>Select Option:</label><br><br>
+        <div class="custom-dropdown">
+            <div class="dropdown-trigger" id="custom-trigger">
+                <span id="custom-selected">-- Choose an option --</span>
+            </div>
+            <div class="dropdown-menu" id="custom-menu">
+                <div class="dropdown-option" data-value="opt1">Option 1</div>
+                <div class="dropdown-option" data-value="opt2">Option 2</div>
+                <div class="dropdown-option" data-value="opt3">Option 3</div>
+                <div class="dropdown-option" data-value="opt4">Option 4</div>
+                <div class="dropdown-option" data-value="opt5">Option 5</div>
+            </div>
+        </div>
+        <div id="custom-result" class="selected-value" style="display:none;"></div>
+    </div>
+
+    <script>
+        // Native select handler
+        document.getElementById('country-select').addEventListener('change', function(e) {
+            const result = document.getElementById('native-result');
+            result.textContent = 'Selected: ' + e.target.options[e.target.selectedIndex].text;
+            result.style.display = 'block';
+        });
+
+        // Custom dropdown handler
+        const trigger = document.getElementById('custom-trigger');
+        const menu = document.getElementById('custom-menu');
+        const selectedSpan = document.getElementById('custom-selected');
+        const customResult = document.getElementById('custom-result');
+
+        trigger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            menu.classList.toggle('open');
+        });
+
+        document.querySelectorAll('.dropdown-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const value = this.getAttribute('data-value');
+                const text = this.textContent;
+                selectedSpan.textContent = text;
+                selectedSpan.setAttribute('data-value', value);
+                menu.classList.remove('open');
+                customResult.textContent = 'Selected: ' + text;
+                customResult.style.display = 'block';
+            });
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function() {
+            menu.classList.remove('open');
+        });
+    </script>
+</body>
+</html>
