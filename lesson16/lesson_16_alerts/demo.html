@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alert Testing Demo</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f0f0f0;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            color: #333;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .success {
+            background: #d4edda !important;
+            color: #155724 !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Alert Testing Demo</h1>
+
+        <button id="jsAlert">Trigger JS Alert</button>
+        <button id="jsConfirm">Trigger JS Confirm</button>
+        <button id="jsPrompt">Trigger JS Prompt</button>
+        <button id="delayedAlert">Delayed Alert (500ms)</button>
+
+        <div id="result">Ready for testing...</div>
+    </div>
+
+    <script>
+        const resultDiv = document.getElementById('result');
+
+        document.getElementById('jsAlert').addEventListener('click', () => {
+            alert('This is a JS Alert');
+            resultDiv.textContent = 'You clicked OK on the alert';
+            resultDiv.className = 'success';
+        });
+
+        document.getElementById('jsConfirm').addEventListener('click', () => {
+            const result = confirm('This is a JS Confirm - Click OK or Cancel');
+            if (result) {
+                resultDiv.textContent = 'You clicked OK on the confirm';
+            } else {
+                resultDiv.textContent = 'You clicked Cancel on the confirm';
+            }
+            resultDiv.className = 'success';
+        });
+
+        document.getElementById('jsPrompt').addEventListener('click', () => {
+            const userInput = prompt('Enter your name:', 'UQAP Student');
+            if (userInput !== null) {
+                resultDiv.textContent = `Hello, ${userInput}!`;
+            } else {
+                resultDiv.textContent = 'Prompt was cancelled';
+            }
+            resultDiv.className = 'success';
+        });
+
+        document.getElementById('delayedAlert').addEventListener('click', () => {
+            resultDiv.textContent = 'Preparing alert...';
+            setTimeout(() => {
+                alert('This alert appeared after 500ms delay');
+                resultDiv.textContent = 'Delayed alert was handled';
+                resultDiv.className = 'success';
+            }, 500);
+        });
+    </script>
+</body>
+</html>
