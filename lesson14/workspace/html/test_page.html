@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Locator Strategy Demo</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #2d3748;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .info-box {
+            background: #f7fafc;
+            border-left: 4px solid #4299e1;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+        }
+        
+        .form-section {
+            margin-top: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4a5568;
+            font-weight: 600;
+        }
+        
+        input[type="text"], input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #4299e1;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 14px 32px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+        
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        #result.success {
+            background: #c6f6d5;
+            border: 2px solid #48bb78;
+            color: #22543d;
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .locator-info {
+            background: #edf2f7;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 30px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+        
+        .locator-info h3 {
+            margin-top: 0;
+            color: #2d3748;
+        }
+        
+        .locator-info code {
+            background: #2d3748;
+            color: #68d391;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Locator Strategy Practice</h1>
+        
+        <div class="info-box">
+            <strong>Purpose:</strong> This page demonstrates multiple ways to locate the same button element.
+            Each locator strategy has different trade-offs in terms of speed, resilience, and maintainability.
+        </div>
+        
+        <div class="form-section">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="fullname" placeholder="Enter your full name">
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com">
+            </div>
+            
+            <!-- THE TARGET BUTTON: Multiple ways to locate it -->
+            <button 
+                id="submit-btn" 
+                class="btn-primary" 
+                data-testid="submit-button"
+                data-action="submit-form"
+                type="button"
+                onclick="handleSubmit()">
+                Submit Order
+            </button>
+            
+            <div id="result"></div>
+        </div>
+        
+        <div class="locator-info">
+            <h3>Available Locator Strategies:</h3>
+            <p><strong>1. By ID:</strong> <code>id="submit-btn"</code></p>
+            <p><strong>2. By Class:</strong> <code>class="btn-primary"</code></p>
+            <p><strong>3. By CSS Selector:</strong> <code>button[data-testid="submit-button"]</code></p>
+            <p><strong>4. By XPath (text):</strong> <code>//button[contains(text(), 'Submit')]</code></p>
+            <p><strong>5. By XPath (absolute):</strong> <code>/html/body/div/div/form/button</code> ⚠️</p>
+        </div>
+    </div>
+    
+    <script>
+        function handleSubmit() {
+            const result = document.getElementById('result');
+            result.className = 'success';
+            result.innerHTML = '<strong>✓ Success!</strong> Button was clicked successfully. All locator strategies work!';
+            
+            // Hide after 3 seconds
+            setTimeout(() => {
+                result.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
