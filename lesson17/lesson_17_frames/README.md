@@ -3,8 +3,8 @@
 
     ## Quick Start
 ```bash
-    # Install dependencies
-    pip install selenium webdriver-manager pytest
+    # Install dependencies (Selenium uses built-in driver management)
+    pip install selenium pytest
 
     # Run tests
     pytest tests/ -v
@@ -20,9 +20,26 @@
     - Exception-safe cleanup with `__enter__` and `__exit__`
     - Production-grade frame navigation patterns
 
+    ## Browser and driver (genuine only, no third-party)
+
+    The project looks for Chromium/Chrome and ChromeDriver in **project paths first**:
+
+    - **Browser**: `bin/chromium`, `bin/google-chrome`, or `bin/chromium-browser`
+    - **Driver**: `driver/chromedriver`
+
+    To use your system binaries without downloading anything, symlink them:
+
+    ```bash
+    ./link_browser_and_driver.sh
+    ```
+
+    This links system Chromium and ChromeDriver into `bin/` and `driver/`. If you don't run it, the project falls back to system paths and Selenium Manager.
+
     ## File Structure
 ```
     lesson_17_frames/
+    ├── bin/                     # Optional: put Chromium/Chrome here (or symlink)
+    ├── driver/                  # Optional: put chromedriver here (or symlink)
     ├── tests/
     │   ├── conftest.py          # Pytest fixtures
     │   └── test_frame_switching.py
@@ -32,6 +49,7 @@
     │   └── frame_handler.py     # Context manager
     ├── resources/
     │   └── test_frames.html     # Test page
+    ├── link_browser_and_driver.sh
     └── verify_results.py
 ```
 

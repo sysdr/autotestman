@@ -104,6 +104,12 @@ logs/
 *.sublime-project
 *.sublime-workspace
 
+# Project-local browser/driver (symlinks or copies; run link_browser_and_driver.sh)
+bin/chromium
+bin/google-chrome
+bin/chromium-browser
+driver/chromedriver
+
 # Project specific
 lesson_17_frames/__pycache__/
 lesson_17_frames/**/__pycache__/
