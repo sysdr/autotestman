@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Demo Login</title>
+</head>
+<body>
+  <div id="login-form">
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <button type="button" id="login-btn">Login</button>
+  </div>
+  <div id="dashboard" style="display: none;">
+    <h1 class="dashboard-title"></h1>
+  </div>
+  <script>
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      var expectedTitle = params.get('expected') || 'Dashboard';
+
+      document.getElementById('login-btn').addEventListener('click', function() {
+        document.getElementById('login-form').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+        document.querySelector('h1.dashboard-title').textContent = expectedTitle;
+      });
+    })();
+  </script>
+</body>
+</html>
