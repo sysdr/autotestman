@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+.venv/
+venv/
+env/
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+
+# IDE, OS, secrets
+.vscode/
+.idea/
+.env
+.env.*
+*.key
+*.pem
+.DS_Store
+
+# Logs, reports, screenshots
+*.log
+logs/
+screenshots/
+
+# Node, Docker, Istio
+node_modules/
+docker-compose.override.yml
+istio/
+*.istio.yaml
+*.istio.yml
