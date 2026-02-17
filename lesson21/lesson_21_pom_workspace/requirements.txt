@@ -1,0 +1,7 @@
+# Core dependencies for Lesson 21: POM
+selenium==4.16.0
+pytest==7.4.3
+webdriver-manager==4.0.1
+
+# Optional: For reporting
+pytest-html==4.1.1
