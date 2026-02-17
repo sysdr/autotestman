@@ -10,9 +10,8 @@ Tests demonstrate:
 
 import pytest
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
 
 import sys
 from pathlib import Path
@@ -23,21 +22,32 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from utils.alert_handler import AlertHandler, AlertUtils
 from pages.alert_page import AlertDemoPage
 
+# Genuine browser+driver pairs (same package, matching versions)
+_SNAP_CHROME = Path("/snap/chromium/current/usr/lib/chromium-browser/chrome")
+_SNAP_CHROMEDRIVER = Path("/snap/chromium/current/usr/lib/chromium-browser/chromedriver")
 
-@pytest.fixture
-def driver():
-    """Fixture to create and teardown WebDriver."""
+
+def _get_chrome_driver():
+    """Use genuine Chrome/Chromium + matching ChromeDriver when available; else Selenium Manager."""
     chrome_options = Options()
     chrome_options.add_argument("--headless=new")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--window-size=1920,1080")
 
-    service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service, options=chrome_options)
+    if _SNAP_CHROME.exists() and _SNAP_CHROMEDRIVER.exists():
+        chrome_options.binary_location = str(_SNAP_CHROME)
+        service = Service(executable_path=str(_SNAP_CHROMEDRIVER))
+        return webdriver.Chrome(service=service, options=chrome_options)
+    return webdriver.Chrome(options=chrome_options)
 
+
+@pytest.fixture
+def driver():
+    """Fixture to create and teardown WebDriver. Uses genuine ChromeDriver when available."""
+    driver = _get_chrome_driver()
     yield driver
-
     driver.quit()
 
 
