@@ -1,5 +1,5 @@
 # E-Commerce Buyer Test Suite Dependencies
+# ChromeDriver is used by default (no third-party driver manager)
 selenium>=4.15.0
-webdriver-manager>=4.0.1
 pytest>=7.4.0
 pytest-html>=4.1.1

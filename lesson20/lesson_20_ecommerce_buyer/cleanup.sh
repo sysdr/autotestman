@@ -1,4 +1,4 @@
-git#!/bin/bash
+#!/bin/bash
 
 # Cleanup Script for Docker and Project Files
 # This script stops all Docker containers and removes unused resources
