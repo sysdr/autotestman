@@ -1,52 +1,57 @@
 #!/bin/bash
+# Cleanup script: stop containers, remove unused Docker resources, containers, images.
+# Optionally stops Docker service (edit below if needed).
 
-# Cleanup script for Lesson 19 project
-# Stops Docker containers and removes unused resources
-# Removes temporary files and caches
-
-set -e  # Exit on error
+set -e
 
 echo "=========================================="
-echo "🧹 Starting Cleanup Process"
+echo "🧹 Docker cleanup"
 echo "=========================================="
-echo ""
 
-# Stop all Docker containers
+# Stop all running containers (safe when none exist)
 echo "📦 Stopping all Docker containers..."
-docker stop $(docker ps -aq) 2>/dev/null || echo "   No running containers found"
-echo ""
+docker ps -q 2>/dev/null | xargs -r docker stop 2>/dev/null || true
+echo "   Done."
 
-# Remove all Docker containers
-echo "🗑️  Removing all Docker containers..."
-docker rm $(docker ps -aq) 2>/dev/null || echo "   No containers to remove"
-echo ""
+# Docker Compose down (project dir or current dir)
+for f in docker-compose.yml docker-compose.yaml; do
+  if [ -f "$f" ]; then
+    echo "📦 Bringing down Docker Compose stack..."
+    docker compose -f "$f" down 2>/dev/null || docker-compose -f "$f" down 2>/dev/null || true
+    echo "   Done."
+    break
+  fi
+done
 
-# Remove unused Docker images
+# Remove stopped containers
+echo "🗑️  Removing stopped containers..."
+docker ps -aq 2>/dev/null | xargs -r docker rm -f 2>/dev/null || true
+echo "   Done."
+
+# Remove unused images
 echo "🖼️  Removing unused Docker images..."
-docker image prune -a -f 2>/dev/null || echo "   No unused images to remove"
-echo ""
+docker image prune -a -f 2>/dev/null || true
+echo "   Done."
 
-# Remove unused Docker volumes
+# Remove unused volumes
 echo "💾 Removing unused Docker volumes..."
-docker volume prune -f 2>/dev/null || echo "   No unused volumes to remove"
-echo ""
+docker volume prune -f 2>/dev/null || true
+echo "   Done."
 
-# Remove unused Docker networks
+# Remove unused networks
 echo "🌐 Removing unused Docker networks..."
-docker network prune -f 2>/dev/null || echo "   No unused networks to remove"
-echo ""
+docker network prune -f 2>/dev/null || true
+echo "   Done."
 
-# Remove all unused Docker resources (containers, networks, images, build cache)
-echo "🧼 Performing full Docker system prune..."
-docker system prune -a -f --volumes 2>/dev/null || echo "   Docker cleanup completed"
-echo ""
+# Full system prune (all unused build cache, etc.)
+echo "🧼 Docker system prune..."
+docker system prune -a -f --volumes 2>/dev/null || true
+echo "   Done."
 
-# Stop Docker service (optional - uncomment if needed)
+# Optional: stop Docker daemon (uncomment if you want to stop the service)
 # echo "🛑 Stopping Docker service..."
-# sudo systemctl stop docker 2>/dev/null || echo "   Docker service not running or permission denied"
-# echo ""
+# sudo systemctl stop docker 2>/dev/null || echo "   (skip or permission denied)"
 
 echo "=========================================="
-echo "✅ Docker Cleanup Complete"
+echo "✅ Docker cleanup complete"
 echo "=========================================="
-echo ""

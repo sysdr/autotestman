@@ -3,15 +3,17 @@ tests/test_kanban_drag.py
 Test suite for drag-and-drop functionality.
 """
 
-import pytest
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
-from pages.kanban_page import KanbanPage
+import os
+import shutil
 import sys
 import time
 from pathlib import Path
+
+import pytest
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+
+from pages.kanban_page import KanbanPage
 
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -36,11 +38,29 @@ def driver(request):
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
 
-    # Use webdriver-manager to automatically handle ChromeDriver
-    print("   → Downloading/checking ChromeDriver...")
-    service = Service(ChromeDriverManager().install())
-    print("   → Starting Chrome browser...")
-    driver = webdriver.Chrome(service=service, options=options)
+    # Point to Chrome binary when not at default path (e.g. /opt/google/chrome/chrome)
+    for candidate in ("/opt/google/chrome/chrome", "/usr/bin/google-chrome"):
+        if os.path.isfile(candidate) and os.access(candidate, os.X_OK):
+            options.binary_location = candidate
+            break
+
+    # Actual driver only: force Selenium Manager (no third-party/system ChromeDriver in PATH)
+    # Remove any PATH directory that contains chromedriver so Selenium Manager provides the driver
+    path_env = os.environ.get("PATH", "")
+    path_dirs = [p.strip() for p in path_env.split(os.pathsep) if p.strip()]
+    chromedriver_dirs = {
+        os.path.normpath(d) for d in path_dirs
+        if os.path.isfile(os.path.join(d, "chromedriver")) and os.access(os.path.join(d, "chromedriver"), os.X_OK)
+    }
+    if chromedriver_dirs:
+        new_path = os.pathsep.join(d for d in path_dirs if os.path.normpath(d) not in chromedriver_dirs)
+        os.environ["PATH"] = new_path
+    try:
+        print("   → Using actual ChromeDriver via Selenium Manager...")
+        driver = webdriver.Chrome(options=options)
+    finally:
+        if chromedriver_dirs:
+            os.environ["PATH"] = path_env
     driver.implicitly_wait(1)
     print("   ✅ Browser ready!\n")
     time.sleep(0.3)  # Brief pause
