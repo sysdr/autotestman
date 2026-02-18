@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+.venv/
+venv/
+env/
+.env
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Pytest
+.pytest_cache/
+.coverage
+htmlcov/
+*.cover
+
+# Allure
+allure-results/
+allure-report/
+
+# Chrome + ChromeDriver (project-local)
+chrome/
+drivers/
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Project artifacts
+screenshots/
+*.log
+.env.local
+.env.*.local
+node_modules/
+*istio*
+
+# Secrets (never commit)
+*.pem
+*.key
+secrets/
+.env.secret

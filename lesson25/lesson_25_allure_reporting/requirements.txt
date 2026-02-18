@@ -1,0 +1,34 @@
+# =============================================================================
+# Python package requirements (install with: pip install -r requirements.txt)
+# =============================================================================
+
+# Core testing dependencies
+pytest==7.4.3
+selenium==4.15.2
+allure-pytest==2.13.2
+
+# WebDriver management
+webdriver-manager==4.0.1
+
+# Additional utilities
+pytest-html==4.1.1
+pytest-xdist==3.5.0
+
+# =============================================================================
+# Setup requirements (not installed via pip – install/setup before running tests)
+# =============================================================================
+#
+# 1. Chrome browser
+#    Install Google Chrome so it is available at one of these paths:
+#    - /usr/bin/google-chrome or /usr/bin/google-chrome-stable
+#    - /opt/google/chrome/google-chrome (or chrome)
+#    - /usr/bin/chromium or /usr/bin/chromium-browser
+#    Alternatively, place a Chrome binary at: <project>/chrome/chrome
+#
+# 2. ChromeDriver
+#    Download ChromeDriver 144 for linux64 and place the executable at:
+#    <project>/drivers/chromedriver
+#    Make it executable: chmod +x drivers/chromedriver
+#
+# See conftest.py for the exact paths used by the test suite.
+# =============================================================================
