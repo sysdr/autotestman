@@ -1,0 +1,5 @@
+# Lesson 28: Parallel Execution with pytest-xdist
+# Install: pip install -r requirements.txt
+
+pytest>=7.0
+pytest-xdist>=3.0
