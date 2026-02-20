@@ -1,0 +1,2 @@
+# Lesson 29: Tagging & Grouping - Test dependencies
+pytest>=7.0.0
