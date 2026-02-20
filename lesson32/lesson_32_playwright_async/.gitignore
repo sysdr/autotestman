@@ -1,0 +1,63 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Pytest
+.pytest_cache/
+.tox/
+.coverage
+.coverage.*
+.cache
+*.cover
+
+# Node
+node_modules/
+
+# IDE / OS
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Env and secrets (no API keys in repo)
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+*.secret
+secrets/
+.secrets
+
+# Logs and reports
+*.log
+logs/
+reports/
+
+# Istio
+istio/
+*.istio.yaml
+*.istio.yml
+
+# Build / dist
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Playwright / browsers (optional)
+playwright-report/
+test-results/
+.blob/
+trace/

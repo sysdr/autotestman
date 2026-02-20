@@ -1,0 +1,7 @@
+# Playwright and async test runner
+playwright>=1.40.0
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+
+# Optional: for comparison/selenium_login.py
+selenium>=4.15.0
