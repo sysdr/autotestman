@@ -1,0 +1,15 @@
+# Cross-Browser Testing Requirements
+# ====================================
+
+# Core dependencies
+selenium>=4.15.0
+pytest>=7.4.0
+webdriver-manager>=4.0.0
+
+# Enhanced testing
+pytest-html>=4.1.0
+pytest-xdist>=3.5.0  # For parallel execution
+pytest-timeout>=2.2.0
+
+# Reporting
+allure-pytest>=2.13.0  # Optional: Advanced reporting
