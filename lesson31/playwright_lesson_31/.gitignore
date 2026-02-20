@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+.Python
+*.so
+.venv/
+venv/
+env/
+ENV/
+
+# Pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Playwright / test artifacts
+screenshots/
+videos/
+traces/
+*.png
+!docs/**/*.png
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Node (if any)
+node_modules/
+
+# Secrets / env (never commit keys)
+.env
+.env.local
+*.pem
+
+# Build / dist
+dist/
+build/
+*.egg-info/
+*.egg
+
+# Istio (if any)
+*istio*
+*.istio.yaml
+*.istio.yml

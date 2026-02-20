@@ -1,0 +1,8 @@
+# Lesson 31: Playwright test suite
+# Install: pip install -r requirements.txt
+# Then: playwright install chromium
+
+playwright>=1.40.0
+pytest>=7.0.0
+pytest-asyncio>=0.21.0
+pytest-playwright>=0.4.0

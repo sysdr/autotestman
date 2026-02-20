@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playwright Lesson 31 - Workspace</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        .subtitle {
+            color: #718096;
+            margin-bottom: 30px;
+            font-size: 1.2em;
+        }
+        .status {
+            background: #48bb78;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .section h2 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .file-tree {
+            background: #f7fafc;
+            border-radius: 8px;
+            padding: 20px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.8;
+        }
+        .file-tree .folder { color: #3d93f5; font-weight: bold; }
+        .file-tree .file { color: #4a5568; }
+        .command {
+            background: #2d3748;
+            color: #48bb78;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            margin: 10px 0;
+        }
+        .next-steps {
+            background: #edf2f7;
+            border-left: 4px solid #3d93f5;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .next-steps li {
+            margin: 10px 0;
+            padding-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎭 Playwright Lesson 31</h1>
+        <div class="subtitle">Setup & Codegen - Production-Ready Testing</div>
+        <div class="status">✓ Workspace Generated Successfully</div>
+        
+        <div class="section">
+            <h2>📁 Project Structure</h2>
+            <div class="file-tree">
+                <div class="folder">playwright_lesson_31/</div>
+                <div style="margin-left: 20px;">
+                    <div class="folder">├── config/</div>
+                    <div style="margin-left: 40px;">
+                        <div class="file">│   └── config.py</div>
+                    </div>
+                    <div class="folder">├── pages/</div>
+                    <div style="margin-left: 40px;">
+                        <div class="file">│   ├── base_page.py</div>
+                        <div class="file">│   └── todo_page.py</div>
+                    </div>
+                    <div class="folder">├── tests/</div>
+                    <div style="margin-left: 40px;">
+                        <div class="file">│   └── test_todo.py</div>
+                    </div>
+                    <div class="folder">├── utils/</div>
+                    <div style="margin-left: 40px;">
+                        <div class="file">│   └── helpers.py</div>
+                    </div>
+                    <div class="folder">├── codegen_output/</div>
+                    <div style="margin-left: 40px;">
+                        <div class="file">│   └── raw_codegen_example.py</div>
+                    </div>
+                    <div class="file">├── conftest.py</div>
+                    <div class="file">├── pytest.ini</div>
+                    <div class="file">└── README.md</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>🚀 Quick Start</h2>
+            <div class="command">cd playwright_lesson_31 && pytest tests/ -v</div>
+        </div>
+        
+        <div class="section">
+            <h2>🎯 Next Steps</h2>
+            <div class="next-steps">
+                <ol>
+                    <li>Run: <code>playwright codegen https://demo.playwright.dev/todomvc</code></li>
+                    <li>Compare raw codegen output with refactored page objects</li>
+                    <li>Execute the test suite and observe the pattern</li>
+                    <li>Modify tests to add new scenarios</li>
+                    <li>Check README.md for advanced commands</li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>📊 Success Metrics</h2>
+            <ul>
+                <li>✓ Test stability &gt; 99% (run 100 times, pass 99+)</li>
+                <li>✓ Execution time &lt; 2s per test</li>
+                <li>✓ Clear failure messages with screenshots</li>
+                <li>✓ Zero hardcoded values (all config-driven)</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
