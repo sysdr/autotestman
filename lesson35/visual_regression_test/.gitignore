@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env/
+
+# Pytest
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+*.cover
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+
+# Secrets / env
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+*.secret
+
+# Istio
+istio/
+*istio*
+
+# Visual regression (optional: uncomment if baselines/screenshots are generated)
+# screenshots/
+# baselines/
+# diffs/
+
+# Logs and temp
+*.log
+*.tmp
+*.temp
+*.bak
