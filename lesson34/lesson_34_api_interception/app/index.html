@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 24px;
+            font-size: 28px;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #667eea;
+        }
+        .loading.active { display: block; }
+        .user-info {
+            display: none;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .user-info.active { display: block; }
+        .user-info h2 {
+            color: #333;
+            margin-bottom: 12px;
+            font-size: 22px;
+        }
+        .user-detail {
+            margin: 8px 0;
+            color: #666;
+            font-size: 16px;
+        }
+        .error-message {
+            display: none;
+            padding: 20px;
+            background: #fee;
+            border: 2px solid #fcc;
+            border-radius: 8px;
+            margin-top: 20px;
+            color: #c33;
+        }
+        .error-message.active { display: block; }
+        .error-title {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        .error-details {
+            font-size: 14px;
+            margin-top: 8px;
+            color: #666;
+        }
+        .retry-button {
+            margin-top: 16px;
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        .retry-button:hover {
+            background: #5568d3;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>User Dashboard</h1>
+        <p>Welcome! Loading your profile...</p>
+        
+        <div class="loading active" id="loading">
+            <div>⏳ Fetching user data...</div>
+        </div>
+        
+        <div class="user-info" id="userInfo">
+            <h2 id="userName"></h2>
+            <div class="user-detail">Email: <span id="userEmail"></span></div>
+            <div class="user-detail">Role: <span id="userRole"></span></div>
+            <div class="user-detail">Member Since: <span id="memberSince"></span></div>
+        </div>
+        
+        <div class="error-message" id="errorMessage">
+            <div class="error-title" id="errorTitle">⚠️ Error Loading Data</div>
+            <div id="errorBody"></div>
+            <div class="error-details" id="errorDetails"></div>
+            <button class="retry-button" id="retryButton">Retry</button>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:8080/api/users/me';
+        
+        async function fetchUserData() {
+            const loading = document.getElementById('loading');
+            const userInfo = document.getElementById('userInfo');
+            const errorMessage = document.getElementById('errorMessage');
+            const retryButton = document.getElementById('retryButton');
+            
+            // Reset UI
+            loading.classList.add('active');
+            userInfo.classList.remove('active');
+            errorMessage.classList.remove('active');
+            retryButton.disabled = true;
+            
+            try {
+                const response = await fetch(API_URL);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                
+                // Display user data
+                document.getElementById('userName').textContent = data.name;
+                document.getElementById('userEmail').textContent = data.email;
+                document.getElementById('userRole').textContent = data.role;
+                document.getElementById('memberSince').textContent = new Date(data.memberSince).toLocaleDateString();
+                
+                loading.classList.remove('active');
+                userInfo.classList.add('active');
+                
+            } catch (error) {
+                loading.classList.remove('active');
+                errorMessage.classList.add('active');
+                retryButton.disabled = false;
+                
+                // Handle different error types
+                if (error.message.includes('500')) {
+                    document.getElementById('errorTitle').textContent = '⚠️ Server Error';
+                    document.getElementById('errorBody').textContent = 'Our servers are experiencing issues. Please try again later.';
+                    document.getElementById('errorDetails').textContent = 'Error: Internal Server Error (500)';
+                } else if (error.message.includes('404')) {
+                    document.getElementById('errorTitle').textContent = '🔍 Not Found';
+                    document.getElementById('errorBody').textContent = 'User profile not found. Please contact support.';
+                    document.getElementById('errorDetails').textContent = 'Error: Resource Not Found (404)';
+                } else if (error.message.includes('401')) {
+                    document.getElementById('errorTitle').textContent = '🔒 Unauthorized';
+                    document.getElementById('errorBody').textContent = 'Your session has expired. Please log in again.';
+                    document.getElementById('errorDetails').textContent = 'Error: Authentication Required (401)';
+                } else if (error.message.includes('Failed to fetch')) {
+                    document.getElementById('errorTitle').textContent = '📡 Connection Failed';
+                    document.getElementById('errorBody').textContent = 'Cannot connect to server. Check your internet connection.';
+                    document.getElementById('errorDetails').textContent = 'Error: Network Timeout';
+                } else {
+                    document.getElementById('errorTitle').textContent = '❌ Unexpected Error';
+                    document.getElementById('errorBody').textContent = 'Something went wrong. Please try again.';
+                    document.getElementById('errorDetails').textContent = `Error: ${error.message}`;
+                }
+            }
+        }
+        
+        // Retry button handler
+        document.getElementById('retryButton').addEventListener('click', fetchUserData);
+        
+        // Initial load
+        fetchUserData();
+    </script>
+</body>
+</html>

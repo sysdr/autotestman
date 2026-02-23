@@ -1,0 +1,43 @@
+# Byte-compiled
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env/
+
+# Pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE / Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node (if used later)
+node_modules/
+
+# Secrets / env
+.env
+.env.local
+*.pem
+
+# Istio (if generated)
+*istio*
+
+# Build / dist
+dist/
+build/
+*.egg-info/
+.eggs/
