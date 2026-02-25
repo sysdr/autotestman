@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Playwright / auth state (generated)
+auth_state.json
+
+# Node (if any)
+node_modules/
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Secrets / keys
+.env
+.env.*
+*.pem
+*.key
+.env.local
+.env.*.local
+
+# Istio (if introduced later)
+*istio*

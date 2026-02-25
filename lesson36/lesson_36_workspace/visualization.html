@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lesson 36: Storage State Visualization</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                min-height: 100vh;
+                padding: 40px 20px;
+            }
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                background: white;
+                border-radius: 20px;
+                box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+                overflow: hidden;
+            }
+            .header {
+                background: linear-gradient(135deg, #6ee7b7 0%, #3d93f5 100%);
+                color: white;
+                padding: 40px;
+                text-align: center;
+            }
+            .header h1 {
+                font-size: 2.5em;
+                margin-bottom: 10px;
+            }
+            .header p {
+                font-size: 1.2em;
+                opacity: 0.9;
+            }
+            .content {
+                padding: 40px;
+            }
+            .comparison {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+                margin: 40px 0;
+            }
+            .approach {
+                padding: 30px;
+                border-radius: 15px;
+                border: 3px solid #e5e7eb;
+            }
+            .approach.naive {
+                background: #fef2f2;
+                border-color: #fca5a5;
+            }
+            .approach.optimized {
+                background: #ecfdf5;
+                border-color: #6ee7b7;
+            }
+            .approach h3 {
+                font-size: 1.5em;
+                margin-bottom: 20px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .icon {
+                font-size: 1.5em;
+            }
+            .timeline {
+                margin: 20px 0;
+            }
+            .timeline-item {
+                display: flex;
+                align-items: center;
+                margin: 15px 0;
+                padding: 15px;
+                background: white;
+                border-radius: 10px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+            .timeline-item .step {
+                min-width: 30px;
+                height: 30px;
+                background: #6ee7b7;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+                color: white;
+                margin-right: 15px;
+            }
+            .metrics {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+                margin: 40px 0;
+            }
+            .metric-card {
+                background: linear-gradient(135deg, #6ee7b7 0%, #3d93f5 100%);
+                color: white;
+                padding: 30px;
+                border-radius: 15px;
+                text-align: center;
+            }
+            .metric-card h4 {
+                font-size: 1.2em;
+                margin-bottom: 10px;
+                opacity: 0.9;
+            }
+            .metric-card .value {
+                font-size: 3em;
+                font-weight: bold;
+            }
+            .code-block {
+                background: #1f2937;
+                color: #10b981;
+                padding: 20px;
+                border-radius: 10px;
+                font-family: 'Courier New', monospace;
+                overflow-x: auto;
+                margin: 20px 0;
+            }
+            @media (max-width: 768px) {
+                .comparison {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <h1>🔐 Authenticated State Storage</h1>
+                <p>The Performance Multiplier Pattern</p>
+            </div>
+
+            <div class="content">
+                <h2 style="text-align: center; margin-bottom: 30px;">The Problem: Authentication Overhead</h2>
+
+                <div class="comparison">
+                    <div class="approach naive">
+                        <h3><span class="icon">❌</span> Naive Approach</h3>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="step">1</div>
+                                <div>Login (3s)</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="step">2</div>
+                                <div>Test dashboard</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="step">3</div>
+                                <div>Login AGAIN (3s)</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="step">4</div>
+                                <div>Test profile</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="step">5</div>
+                                <div>Login AGAIN (3s)</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="step">6</div>
+                                <div>Test settings...</div>
+                            </div>
+                        </div>
+                        <p style="text-align: center; font-weight: bold; color: #dc2626;">
+                            100 tests = 300 seconds wasted
+                        </p>
+                    </div>
+
+                    <div class="approach optimized">
+                        <h3><span class="icon">✅</span> Storage State Pattern</h3>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="step">1</div>
+                                <div>Login ONCE (3s)</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="step">2</div>
+                                <div>Save state to auth.json</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="step">3</div>
+                                <div>Load state (0.05s) → Test dashboard</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="step">4</div>
+                                <div>Load state (0.05s) → Test profile</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="step">5</div>
+                                <div>Load state (0.05s) → Test settings</div>
+                            </div>
+                        </div>
+                        <p style="text-align: center; font-weight: bold; color: #059669;">
+                            100 tests = 8 seconds total
+                        </p>
+                    </div>
+                </div>
+
+                <div class="metrics">
+                    <div class="metric-card">
+                        <h4>Time Reduction</h4>
+                        <div class="value">97%</div>
+                    </div>
+                    <div class="metric-card">
+                        <h4>Auth Server Load</h4>
+                        <div class="value">-99%</div>
+                    </div>
+                    <div class="metric-card">
+                        <h4>Test Stability</h4>
+                        <div class="value">99.9%</div>
+                    </div>
+                </div>
+
+                <h2 style="text-align: center; margin: 40px 0 20px;">How It Works</h2>
+
+                <div class="code-block">
+# Step 1: Authenticate and capture state
+context.storage_state(path="auth.json")
+
+# Step 2: Load state in all tests
+context = browser.new_context(storage_state="auth.json")
+
+# Result: Tests start already authenticated
+                </div>
+
+                <div style="background: #f3f4f6; padding: 30px; border-radius: 15px; margin-top: 40px;">
+                    <h3 style="margin-bottom: 15px;">🎯 Production Benefits</h3>
+                    <ul style="line-height: 2; margin-left: 20px;">
+                        <li><strong>Faster CI/CD:</strong> 45min → 5min pipeline execution</li>
+                        <li><strong>Parallel Execution:</strong> No auth server bottleneck</li>
+                        <li><strong>Reduced Flakiness:</strong> Eliminate network-dependent login flows</li>
+                        <li><strong>Cost Savings:</strong> Lower CI compute time = lower cloud bills</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </body>
+    </html>
