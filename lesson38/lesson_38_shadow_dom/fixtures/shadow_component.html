@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Shadow DOM Test Fixture — Lesson 38</title>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; background: #f8fafc; }
+    h1   { color: #1e293b; }
+    custom-search { display: block; margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <h1>UQAP — Shadow DOM Fixture</h1>
+
+  <!-- Outer shadow host -->
+  <custom-search data-testid="search-widget"></custom-search>
+
+  <!-- Nested shadow host -->
+  <nested-panel data-testid="nested-widget"></nested-panel>
+
+  <script>
+    // ── Custom Element 1: <custom-search> ──────────────────────────────────
+    class CustomSearch extends HTMLElement {
+      connectedCallback() {
+        const shadow = this.attachShadow({ mode: 'open' });
+        shadow.innerHTML = `
+          <style>
+            .wrapper { border: 2px solid #3d93f5; border-radius: 8px;
+                       padding: 1rem; background: white; max-width: 400px; }
+            input    { width: 100%; padding: .5rem; font-size: 1rem;
+                       border: 1px solid #cbd5e1; border-radius: 4px; box-sizing: border-box; }
+            button   { margin-top: .5rem; padding: .5rem 1rem; background: #3d93f5;
+                       color: white; border: none; border-radius: 4px; cursor: pointer; }
+            #result  { margin-top: .5rem; color: #6ee7b7; font-weight: bold; min-height: 1.5rem; }
+          </style>
+          <div class="wrapper">
+            <label for="q">Shadow Search</label>
+            <input id="q" type="text" placeholder="Type here…" data-testid="shadow-input"/>
+            <button id="btn" data-testid="shadow-button">Search</button>
+            <div id="result" data-testid="shadow-result"></div>
+          </div>`;
+        shadow.getElementById('btn').addEventListener('click', () => {
+          const val = shadow.getElementById('q').value.trim();
+          shadow.getElementById('result').textContent =
+            val ? 'Results for: ' + val : 'Please enter a query';
+        });
+      }
+    }
+    customElements.define('custom-search', CustomSearch);
+
+    // ── Custom Element 2: <nested-panel> (shadow inside shadow) ──────────
+    class InnerButton extends HTMLElement {
+      connectedCallback() {
+        const s = this.attachShadow({ mode: 'open' });
+        s.innerHTML = `
+          <style>
+            button { background:#6ee7b7; border:none; border-radius:4px;
+                     padding:.5rem 1rem; cursor:pointer; font-weight:bold; }
+            #msg   { margin-top:.5rem; color:#1e293b; min-height:1.2rem; }
+          </style>
+          <button data-testid="nested-button">Click Me (Nested Shadow)</button>
+          <div id="msg" data-testid="nested-msg"></div>`;
+        s.querySelector('button').addEventListener('click', () => {
+          s.getElementById('msg').textContent = 'Nested shadow activated!';
+        });
+      }
+    }
+    customElements.define('inner-button', InnerButton);
+
+    class NestedPanel extends HTMLElement {
+      connectedCallback() {
+        const s = this.attachShadow({ mode: 'open' });
+        s.innerHTML = `
+          <style>
+            .panel { border: 2px solid #6ee7b7; border-radius: 8px;
+                     padding: 1rem; max-width: 400px; margin-top:1rem; background:white; }
+            h3     { margin:0 0 .5rem; color:#3d93f5; }
+          </style>
+          <div class="panel">
+            <h3>Nested Shadow Panel</h3>
+            <inner-button></inner-button>
+          </div>`;
+      }
+    }
+    customElements.define('nested-panel', NestedPanel);
+  </script>
+</body>
+</html>
