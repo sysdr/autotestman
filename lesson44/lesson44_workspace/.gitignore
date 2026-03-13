@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+.pytest_cache/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Node
+node_modules/
+
+# Reports / generated
+*.html
+
+# Env / secrets (do not commit)
+.env
+.env.*
+*.pem
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Istio (if present)
+*istio*
