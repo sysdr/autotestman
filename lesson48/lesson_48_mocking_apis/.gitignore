@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.venv/
+env/
+.env
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+*.cover
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Reports (generated)
+reports/
+
+# Node (if ever used)
+node_modules/
+
+# Secrets / env
+.env.local
+.env.*.local
+*.pem
+
+# Istio / k8s local
+*.yaml.bak
+*.yml.bak
