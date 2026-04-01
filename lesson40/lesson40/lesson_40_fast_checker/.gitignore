@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Virtual environments
+venv/
+.venv/
+env/
+automation-venv/
+automation-p-venv/
+*.venv/
+
+# Pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE / editor
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Node (if any)
+node_modules/
+
+# Reports / artifacts
+reports/
+*.log
+
+# Istio (if any)
+*istio*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets / env (do not commit keys)
+.env
+.env.local
+*.pem

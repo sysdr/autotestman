@@ -1,0 +1,5 @@
+# Exact pins: pytest 8.2+ removed FixtureDef.unittest; pytest-asyncio 0.21.x/1.x
+# still reference it. Use this combo to avoid AttributeError.
+pytest==8.1.2
+pytest-asyncio==0.23.8
+playwright>=1.40
