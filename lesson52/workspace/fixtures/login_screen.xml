@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hierarchy rotation="0">
+  <android.widget.FrameLayout resource-id="android:id/content" 
+      bounds="[0,0][1080,2400]" class="android.widget.FrameLayout"
+      text="" content-desc="" clickable="false" enabled="true">
+    <android.widget.LinearLayout resource-id="com.example.myapp:id/root_layout"
+        bounds="[0,0][1080,2400]" class="android.widget.LinearLayout"
+        text="" clickable="false" enabled="true">
+      <android.widget.EditText resource-id="com.example.myapp:id/et_email"
+          bounds="[40,400][1040,550]" class="android.widget.EditText"
+          text="Email" content-desc="Email field" clickable="true" enabled="true"/>
+      <android.widget.EditText resource-id="com.example.myapp:id/et_password"
+          bounds="[40,600][1040,750]" class="android.widget.EditText"
+          text="Password" content-desc="Password field" clickable="true" enabled="true"/>
+      <android.widget.Button resource-id="com.example.myapp:id/btn_login"
+          bounds="[40,800][1040,950]" class="android.widget.Button"
+          text="Login" content-desc="Login button" clickable="true" enabled="true"/>
+      <android.widget.TextView resource-id="com.example.myapp:id/tv_forgot"
+          bounds="[40,970][500,1020]" class="android.widget.TextView"
+          text="Forgot Password?" clickable="true" enabled="true"/>
+    </android.widget.LinearLayout>
+  </android.widget.FrameLayout>
+</hierarchy>

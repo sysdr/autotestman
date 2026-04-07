@@ -1,0 +1,5 @@
+# Lesson 52 — Appium Inspector workspace
+# Install: pip install -r requirements.txt
+
+pytest>=7.0.0
+Appium-Python-Client>=3.0.0

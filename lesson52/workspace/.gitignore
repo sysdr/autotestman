@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+*.pyo
+*.so
+.Python
+venv/
+.venv/
+env/
+.env
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Node (if tooling is added later)
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Istio / service mesh artifacts
+**/istio/
+**/istio-*/
+*istio*.yaml
+*istio*.yml
+istioctl
+*.istio
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project
+locators/*.py
+!locators/__init__.py
+reports/*.html
+apks/*.apk
+*.log
+
+# Secrets (never commit)
+.env.local
+*.pem
+secrets/
