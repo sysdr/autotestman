@@ -1,0 +1,4 @@
+flask
+playwright
+pytest
+pytest-bdd
