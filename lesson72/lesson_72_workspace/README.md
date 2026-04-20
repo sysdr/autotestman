@@ -1,6 +1,8 @@
 # Lesson 72 — Jenkins & GitHub Actions CI workspace
 
-This folder is a **small Python project** used to teach **declarative Jenkins pipelines** and **GitHub Actions** running **pytest** with JUnit and HTML reports.
+This repository **is** the runnable project. After you **clone** it, work in the **repository root** (the folder that contains `Jenkinsfile`, `requirements.txt`, and `tests/`). **No parent `setup.py` or other generator is required** on your machine—everything you need is in this tree.
+
+**Prerequisites:** Python **3.11+**, `git`. **Docker** is optional and only used if you run `cleanup.sh`.
 
 ## Contents
 
@@ -15,10 +17,13 @@ This folder is a **small Python project** used to teach **declarative Jenkins pi
 
 ## Quick start (local)
 
+From the **root of the cloned repository**:
+
 ```bash
-cd lesson_72_workspace
 python3 -m venv .venv
+./.venv/bin/pip install --upgrade pip
 ./.venv/bin/pip install -r requirements.txt
+mkdir -p reports
 ./.venv/bin/pytest tests/ -v --junitxml=reports/junit.xml --html=reports/report.html --self-contained-html
 ```
 
@@ -26,16 +31,16 @@ On **PEP 668** systems (Debian/Ubuntu), always use a **virtualenv** as above; do
 
 ## CI
 
-- **Jenkins:** create a Pipeline job from SCM; ensure the repo root contains this `Jenkinsfile`.
-- **GitHub:** push this tree (or merge these paths into your repo); Actions runs on push/PR per `tests.yml`.
+- **Jenkins:** create a Pipeline job from SCM; the repo root must contain this `Jenkinsfile`.
+- **GitHub:** the workflow in `.github/workflows/tests.yml` runs on push and pull request when this tree is in your GitHub repository.
 
 ## Cleanup
 
-From this directory:
+From the repository root:
 
 ```bash
 chmod +x cleanup.sh
 ./cleanup.sh
 ```
 
-Stops running containers (when Docker is available), prunes unused Docker objects, and removes local `venv` / caches. May require **sudo** to stop the `docker` system service on some hosts.
+Stops running containers (when Docker is available), prunes unused Docker objects, and removes local `.venv` / caches under this project. May require **sudo** to stop the `docker` system service on some hosts.
