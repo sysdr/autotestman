@@ -1,0 +1,70 @@
+# .github/workflows/tests.yml
+# GitHub Actions equivalent of the Jenkinsfile.
+# Triggers on every push and pull request.
+#
+# Free tier: 2,000 minutes/month for public repos, 500 for private.
+
+name: UQAP Test Suite
+
+on:
+  push:
+    branches: ["main", "develop", "feature/**"]
+  pull_request:
+    branches: ["main"]
+
+  # Allow manual trigger from the GitHub UI
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: "Run pytest on ${{ matrix.os }}"
+    runs-on: ${{ matrix.os }}
+
+    # Matrix strategy: run tests on multiple OS to catch platform bugs
+    strategy:
+      fail-fast: false   # Don't cancel other OS jobs if one fails
+      matrix:
+        os: [ubuntu-latest]
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      # 1. Check out the code at the triggering commit
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      # 2. Install the exact Python version (hermetic!)
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: "pip"  # Cache pip downloads between runs = faster CI
+
+      # 3. Install pinned dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # 4. Lint (fast fail before expensive tests)
+      - name: Syntax check
+        run: python -m py_compile tests/*.py
+
+      # 5. Run the actual tests
+      - name: Run tests
+        run: |
+          mkdir -p reports
+          pytest tests/ \
+            --junitxml=reports/junit.xml \
+            --html=reports/report.html \
+            --self-contained-html \
+            -v \
+            --tb=short
+
+      # 6. Publish results (visible in GitHub Actions summary tab)
+      - name: Publish test report
+        uses: actions/upload-artifact@v4
+        if: always()   # Upload even if tests failed
+        with:
+          name: test-report-${{ matrix.os }}-py${{ matrix.python-version }}
+          path: reports/
+          retention-days: 30

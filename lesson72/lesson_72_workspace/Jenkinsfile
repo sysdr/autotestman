@@ -1,0 +1,87 @@
+// Jenkinsfile — Declarative Pipeline for UQAP Test Suite
+// Lesson 72: Lesson Task — "Freestyle" CI job running pytest automatically.
+// 
+// Place this file at the ROOT of your Git repo.
+// Jenkins will auto-discover it when you configure a Pipeline job.
+
+pipeline {
+    agent any  // Use any available Jenkins agent (worker node)
+
+    options {
+        // Keep only the last 30 builds to save disk space
+        buildDiscarder(logRotator(numToKeepStr: '30'))
+        // Abort if the pipeline runs longer than 15 minutes (prevents zombie jobs)
+        timeout(time: 15, unit: 'MINUTES')
+        // Add timestamps to every console log line
+        timestamps()
+    }
+
+    environment {
+        // Ensures Python output is not buffered (we see logs in real-time)
+        PYTHONUNBUFFERED = '1'
+        PYTHONDONTWRITEBYTECODE = '1'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo "=== Checking out source code ==="
+                checkout scm  // Jenkins auto-checks out the triggering commit
+            }
+        }
+
+        stage('Setup Environment') {
+            steps {
+                echo "=== Creating isolated Python virtual environment ==="
+                sh """
+                    python3 -m venv .venv
+                    .venv/bin/pip install --upgrade pip --quiet
+                    .venv/bin/pip install -r requirements.txt --quiet
+                """
+            }
+        }
+
+        stage('Lint') {
+            steps {
+                echo "=== Running static analysis ==="
+                sh '.venv/bin/python -m py_compile tests/*.py && echo "Syntax OK"'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo "=== Running test suite ==="
+                sh """
+                    mkdir -p reports
+                    .venv/bin/pytest tests/ \\
+                        --junitxml=reports/junit.xml \\
+                        --html=reports/report.html \\
+                        --self-contained-html \\
+                        -v \\
+                        --tb=short
+                """
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "=== Publishing test results ==="
+            // Jenkins reads JUnit XML and renders pass/fail graphs
+            junit allowEmptyResults: true, testResults: 'reports/junit.xml'
+
+            // Archive HTML report as a build artifact
+            archiveArtifacts artifacts: 'reports/**/*', allowEmptyArchive: true
+
+            // Clean up venv to save disk space on the agent
+            sh 'rm -rf .venv || true'
+        }
+        success {
+            echo "Pipeline PASSED — All tests green."
+        }
+        failure {
+            echo "Pipeline FAILED — Check test reports above."
+            // In production: emailext, Slack notification, PagerDuty hook, etc.
+        }
+    }
+}

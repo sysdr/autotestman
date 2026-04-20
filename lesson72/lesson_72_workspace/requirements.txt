@@ -1,0 +1,6 @@
+# requirements.txt — Pinned for reproducible CI builds
+# NEVER use >= in CI. Pin exact versions.
+
+pytest==8.3.2
+pytest-html==4.1.1
+pytest-metadata==3.1.1
