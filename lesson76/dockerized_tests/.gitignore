@@ -1,0 +1,39 @@
+# Python / tooling
+.venv/
+venv/
+env/
+ENV/
+__pycache__/
+*.py[cod]
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Reports & local drivers cache
+reports/
+.wdm/
+
+# Node (if ever added)
+node_modules/
+
+# Env / secrets (never commit)
+.env
+.env.*
+*.pem
+
+# Istio / service mesh artifacts (not used by this lesson; ignore if copied in)
+istio/
+*.istio.yaml
+*.istio.yml
+
+# Editors / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.log
