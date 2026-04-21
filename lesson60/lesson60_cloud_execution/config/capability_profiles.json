@@ -1,0 +1,26 @@
+{
+  "_comment": "Capability profiles for UQAP Lesson 60. Load via utils/profiles.py",
+  "profiles": {
+    "android_s21_bs": {
+      "provider": "browserstack",
+      "platform": "Android",
+      "device": "Samsung Galaxy S21",
+      "os_version": "11.0",
+      "app_key": "BS_APP_URL"
+    },
+    "android_pixel_bs": {
+      "provider": "browserstack",
+      "platform": "Android",
+      "device": "Google Pixel 6",
+      "os_version": "12.0",
+      "app_key": "BS_APP_URL"
+    },
+    "ios_iphone13_bs": {
+      "provider": "browserstack",
+      "platform": "iOS",
+      "device": "iPhone 13",
+      "os_version": "15",
+      "app_key": "BS_IOS_APP_URL"
+    }
+  }
+}
